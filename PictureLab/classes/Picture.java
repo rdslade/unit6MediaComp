@@ -101,7 +101,7 @@ public class Picture extends SimplePicture
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
     * from left to right */
-  public void mirrorVertical()
+  public void mirrorVerticalLeftToRight()
   {
     Pixel[][] pixels = this.getPixels2D();
     Pixel leftPixel = null;
@@ -114,6 +114,97 @@ public class Picture extends SimplePicture
         leftPixel = pixels[row][col];
         rightPixel = pixels[row][width - 1 - col];
         rightPixel.setColor(leftPixel.getColor());
+      }
+    } 
+  }
+  /** Method that mirrors the picture around a 
+    * vertical mirror in the center of the picture
+    * from left to right */
+  public void mirrorVerticalRightToLeft()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    int width = pixels[0].length;
+    for (int row = 0; row < pixels.length; row++)
+    {
+      for (int col = 0; col < width / 2; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][width - 1 - col];
+        leftPixel.setColor(rightPixel.getColor());
+      }
+    } 
+  } 
+  /** Method that mirrors the picture around a 
+    * vertical mirror in the center of the picture
+    * from left to right */
+  public void mirrorHorizontalTopToBottom()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel topPixel = null;
+    Pixel bottomPixel = null;
+    int height = pixels.length;
+    for (int row = 0; row < height/2; row++)
+    {
+      for (int col = 0; col < pixels[0].length; col++)
+      {
+        topPixel = pixels[row][col];
+        bottomPixel = pixels[height-1-row][col];
+        bottomPixel.setColor(topPixel.getColor());
+      }
+    } 
+  }
+  
+  /** Method that mirrors the picture around a 
+    * vertical mirror in the center of the picture
+    * from left to right */
+  public void mirrorHorizontalBottomToTop()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel topPixel = null;
+    Pixel bottomPixel = null;
+    int height = pixels.length;
+    for (int row = 0; row < height/2; row++)
+    {
+      for (int col = 0; col < pixels[0].length; col++)
+      {
+        topPixel = pixels[row][col];
+        bottomPixel = pixels[height-1-row][col];
+        topPixel.setColor(bottomPixel.getColor());
+      }
+    } 
+  }
+  
+  /** Method that mirrors the picture around a 
+    * vertical mirror in the center of the picture
+    * from left to right */
+  public void mirrorDiagonal()
+  {
+    //WHATEVER THE BOTTOM LEFT PIXEL IS, THAT GOES TO THE INVERSE [ROW][COL] FOR TOP RIGHT PIXEL
+    //SUB STRING LAB WITH INTERDEPENDENT FOR LOOPS TO ITTERATE CORRECTLY THROUGH BOTTOM LEFT PIXELS
+    //[1,0]=>[0,1]   [2,0]=>[0,2]    [2,1]=>[1,2]
+    int shortest = 0;
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel bottomLeftPixel = null;
+    Pixel topRightPixel = null;
+    int height = pixels.length;
+    int width = pixels[0].length;
+    if (height>width)
+    {
+        shortest = width;
+    }
+    else
+    {
+        shortest = height;
+    }
+    for (int row = 0; row < shortest; row++)
+    {
+      for (int col = 0; col < shortest; col++)
+      {
+        bottomLeftPixel = pixels[row][col];
+        topRightPixel = pixels[col][row];
+        topRightPixel.setColor(bottomLeftPixel.getColor());
       }
     } 
   }
@@ -138,8 +229,10 @@ public class Picture extends SimplePicture
         rightPixel = pixels[row]                       
                          [mirrorPoint - col + mirrorPoint];
         rightPixel.setColor(leftPixel.getColor());
+        count++;
       }
     }
+    System.out.println(count);
   }
   
   /** copy from the passed fromPic to the
@@ -186,7 +279,7 @@ public class Picture extends SimplePicture
     this.copy(flowerNoBlue,300,0);
     this.copy(flower1,400,0);
     this.copy(flower2,500,0);
-    this.mirrorVertical();
+    this.mirrorVerticalLeftToRight();
     this.write("collage.jpg");
   }
   
@@ -225,7 +318,7 @@ public class Picture extends SimplePicture
   {
     Picture beach = new Picture("beach.jpg");
     beach.explore();
-    beach.zeroBlue();
+    beach.mirrorTemple();
     beach.explore();
   }
   
