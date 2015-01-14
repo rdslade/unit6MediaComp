@@ -98,6 +98,60 @@ public class Picture extends SimplePicture
     }
   }
   
+  public void keepOnlyBlue()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setGreen(0);
+        pixelObj.setRed(0);
+      }
+    }
+  }
+  
+  public void negate()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setGreen(255-pixelObj.getGreen());
+        pixelObj.setBlue(255-pixelObj.getBlue());
+        pixelObj.setRed(255-pixelObj.getRed());
+      }
+    }
+  }
+  
+  public void grayscale()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        int gray = (pixelObj.getGreen()+pixelObj.getBlue()+pixelObj.getRed())/3;
+        pixelObj.setGreen(gray);
+        pixelObj.setBlue(gray);
+        pixelObj.setRed(gray);
+      }
+    }
+  }
+  
+  public void fixUnderwater()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        
+      }
+    }
+  }
+  
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
     * from left to right */
@@ -234,6 +288,79 @@ public class Picture extends SimplePicture
     }
     System.out.println(count);
   }
+  public void mirrorArms()
+  {
+    int mirrorPoint = 207;
+    Pixel topPixel = null;
+    Pixel bottomPixel = null;
+    
+    Pixel[][] pixels = this.getPixels2D();
+    
+    // loop through the rows
+    for (int row = 170; row < mirrorPoint; row++)
+    {
+      // loop from 13 to just before the mirror point
+      for (int col = 104; col < 170; col++)
+      {
+        
+        topPixel = pixels[row][col];      
+        bottomPixel = pixels[mirrorPoint+(mirrorPoint-row)]                       
+                         [col];
+        bottomPixel.setColor(topPixel.getColor());
+      }
+    }
+    for (int row = 170; row < mirrorPoint; row++)
+    {
+      // loop from 13 to just before the mirror point
+      for (int col = 239; col < 294; col++)
+      {
+        
+        topPixel = pixels[row][col];      
+        bottomPixel = pixels[mirrorPoint+(mirrorPoint-row)]                       
+                         [col];
+        bottomPixel.setColor(topPixel.getColor());
+      }
+    }
+  }
+  public void mirrorSeagull()
+  {
+    int mirrorPoint = 361;
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    
+    Pixel[][] pixels = this.getPixels2D();
+    
+    // loop through the rows
+    for (int row = 235; row < 319; row++)
+    {
+      // loop from 13 to just before the mirror point
+      for (int col = 235; col < mirrorPoint; col++)
+      {
+        
+        leftPixel = pixels[row][col];      
+        rightPixel = pixels[row]                       
+                         [mirrorPoint-col+mirrorPoint];
+        rightPixel.setColor(leftPixel.getColor());
+      }
+    }
+  }
+  
+  public void mirrorJohnRight()
+  {
+      int mirrorPoint = 86;
+      Pixel leftPixel = null;
+      Pixel rightPixel = null;
+      Pixel[][] pixels = this.getPixels2D();
+      for (int row=3; row<60;row++)
+      {
+          for (int col=47; col<mirrorPoint; col++)
+          {
+              leftPixel = pixels[row][col];
+              rightPixel = pixels[row][mirrorPoint-col+mirrorPoint];
+              rightPixel.setColor(leftPixel.getColor());
+            }
+        }
+    }
   
   /** copy from the passed fromPic to the
     * specified startRow and startCol in the
@@ -316,10 +443,8 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("beach.jpg");
-    beach.explore();
-    beach.mirrorTemple();
-    beach.explore();
+    Picture water = new Picture("water.jpg");
+    water.explore();
   }
   
 } // this } is the end of class Picture, put all new methods before this
