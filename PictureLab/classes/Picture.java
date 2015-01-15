@@ -147,7 +147,7 @@ public class Picture extends SimplePicture
     {
       for (Pixel pixelObj : rowArray)
       {
-        
+         pixelObj.setRed((int)(pixelObj.getRed()*4));
       }
     }
   }
@@ -304,8 +304,7 @@ public class Picture extends SimplePicture
       {
         
         topPixel = pixels[row][col];      
-        bottomPixel = pixels[mirrorPoint+(mirrorPoint-row)]                       
-                         [col];
+        bottomPixel = pixels[mirrorPoint+(mirrorPoint-row)][col];
         bottomPixel.setColor(topPixel.getColor());
       }
     }
@@ -361,6 +360,93 @@ public class Picture extends SimplePicture
             }
         }
     }
+    
+  public void sepia()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        if (pixelObj.getRed()<60)
+        {
+            pixelObj.setRed((int)(pixelObj.getRed()*.9));
+            pixelObj.setGreen((int)(pixelObj.getGreen()*.9));
+            pixelObj.setBlue((int)(pixelObj.getBlue()*.9));
+        }
+        else if(pixelObj.getRed()<190)
+        {
+            pixelObj.setBlue((int)(pixelObj.getBlue()*.8));
+        }
+        else
+        {
+            pixelObj.setBlue((int)(pixelObj.getBlue()*.9));
+        }
+      }
+    }
+  }
+  
+  public void posterize()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        //red
+        if (pixelObj.getRed()<63)
+        {
+            pixelObj.setRed(32);
+        }
+        if (pixelObj.getRed()<127)
+        {
+            pixelObj.setRed(96);
+        }
+        if (pixelObj.getRed()<191)
+        {
+            pixelObj.setRed(160);
+        }
+        else
+        {
+            pixelObj.setRed(224);
+        }
+        //green
+        if (pixelObj.getGreen()<63)
+        {
+            pixelObj.setGreen(32);
+        }
+        if (pixelObj.getGreen()<127)
+        {
+            pixelObj.setGreen(96);
+        }
+        if (pixelObj.getGreen()<191)
+        {
+            pixelObj.setGreen(160);
+        }
+        else
+        {
+            pixelObj.setGreen(224);
+        }
+        //blue
+        if (pixelObj.getBlue()<63)
+        {
+            pixelObj.setBlue(32);
+        }
+        if (pixelObj.getBlue()<127)
+        {
+            pixelObj.setBlue(96);
+        }
+        if (pixelObj.getBlue()<191)
+        {
+            pixelObj.setBlue(160);
+        }
+        else
+        {
+            pixelObj.setBlue(224);
+        }
+      }
+    }
+  }
   
   /** copy from the passed fromPic to the
     * specified startRow and startCol in the
@@ -393,6 +479,8 @@ public class Picture extends SimplePicture
     }   
   }
 
+  
+
   /** Method to create a collage of several pictures */
   public void createCollage()
   {
@@ -408,6 +496,12 @@ public class Picture extends SimplePicture
     this.copy(flower2,500,0);
     this.mirrorVerticalLeftToRight();
     this.write("collage.jpg");
+  }
+  
+  
+  public void createMyCollage()
+  {
+      
   }
   
   
@@ -444,6 +538,7 @@ public class Picture extends SimplePicture
   public static void main(String[] args) 
   {
     Picture water = new Picture("water.jpg");
+    water.fixUnderwater();
     water.explore();
   }
   

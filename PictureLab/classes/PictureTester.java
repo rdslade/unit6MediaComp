@@ -115,6 +115,22 @@ public class PictureTester
     beach.explore();
   }
   
+  public static void testSepia()
+  {
+    Picture beach = new Picture("beach.jpg");
+    beach.explore();
+    beach.sepia();
+    beach.explore();
+  }
+  
+  public static void testPosterize()
+  {     
+      Picture john = new Picture("beach.jpg");
+      john.explore();
+      john.posterize();
+      john.explore();
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
