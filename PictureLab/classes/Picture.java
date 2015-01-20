@@ -499,9 +499,13 @@ public class Picture extends SimplePicture
   }
   
   
-  public void createMyCollage()
+  public void createMyCollage(Picture pic)
   {
-      
+      Picture arch = new Picture("arch.jpg");
+      pic.copy(arch,0,0);
+      arch.negate();
+      pic.copy(arch,250,300);
+      pic.explore();
   }
   
   
@@ -531,15 +535,13 @@ public class Picture extends SimplePicture
     }
   }
   
-  
   /* Main method for testing - each class in Java can have a main 
    * method 
    */
   public static void main(String[] args) 
   {
-    Picture water = new Picture("water.jpg");
-    water.fixUnderwater();
-    water.explore();
+    Picture canvas = new Picture(1000,1000);
+    canvas.createMyCollage(canvas);
   }
   
 } // this } is the end of class Picture, put all new methods before this
