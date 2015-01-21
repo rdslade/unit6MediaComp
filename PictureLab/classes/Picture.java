@@ -498,13 +498,35 @@ public class Picture extends SimplePicture
     this.write("collage.jpg");
   }
   
+  public void mirrorArch1()
+  {
+      int mirrorPoint = 100;
+      Pixel topPixel = null;
+      Pixel bottomPixel = null;
+    
+      Pixel[][] pixels = this.getPixels2D();
+    
+        for (int row = 0; row < mirrorPoint; row++)
+        {
+          for (int col = 87; col < 311; col++)
+          {
+            topPixel = pixels[row][col];      
+            bottomPixel = pixels[mirrorPoint+(mirrorPoint-row)][col];
+            bottomPixel.setColor(topPixel.getColor());
+          }
+        }
+    }
+  
   
   public void createMyCollage(Picture pic)
   {
       Picture arch = new Picture("arch.jpg");
       pic.copy(arch,0,0);
+      pic.copy(arch,500,800);
       arch.negate();
-      pic.copy(arch,250,300);
+      arch.mirrorVerticalRightToLeft();
+      arch.mirrorArch1();
+      pic.copy(arch,250,400);
       pic.explore();
   }
   
@@ -540,7 +562,7 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture canvas = new Picture(1000,1000);
+    Picture canvas = new Picture(750,1200);
     canvas.createMyCollage(canvas);
   }
   
