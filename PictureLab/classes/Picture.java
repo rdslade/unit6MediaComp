@@ -639,15 +639,6 @@ public class Picture extends SimplePicture
   
   public void createMyCollage(Picture pic)
   {
-<<<<<<< HEAD
-      Picture arch = new Picture("arch.jpg");
-      pic.copy(arch,0,0);
-      pic.copy(arch,500,800);
-      arch.negate();
-      arch.mirrorVerticalRightToLeft();
-      arch.mirrorArch1();
-      pic.copy(arch,250,400);
-=======
       Picture arch1 = new Picture("arch.jpg");
       Picture arch2 = new Picture("arch.jpg");
       Picture arch3 = new Picture("arch.jpg");
@@ -672,9 +663,6 @@ public class Picture extends SimplePicture
       arch1.mirrorVerticalRightToLeft();
       pic.copy(arch1,250,400);
       
-      //Picture john = new Picture("john.jpg");
-      //pic.copy(john,330,535);
-      
       arch5.posterize();
       arch5.mirrorHorizontalTopToBottom();
       arch5.mirrorVerticalRightToLeft();
@@ -692,8 +680,8 @@ public class Picture extends SimplePicture
       pic.copy(arch6,0,400);
       pic.copy(arch7,500,400);
       
->>>>>>> origin/master
       pic.explore();
+      pic.write("MyCollage.jpg");
   }
   
   
